@@ -6,5 +6,6 @@ public interface Mediator {
      * @param <TResponse>     The type of the response that will be returned.
      * @return The result of the executed handler.
      */
+
     <TResponse> TResponse send(Request<TResponse> request);
 }

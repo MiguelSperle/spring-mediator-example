@@ -15,8 +15,8 @@ public class TestController {
 
     @PostMapping("test")
     public ResponseEntity<Object> test(@RequestBody TestRequest testRequest) {
-        this.mediator.send(testRequest);
+        final String message = this.mediator.send(testRequest);
 
-        return ResponseEntity.ok().body("Success");
+        return ResponseEntity.ok().body(message);
     }
 }

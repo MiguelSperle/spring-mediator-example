@@ -45,4 +45,5 @@ public class SpringMediator implements Mediator {
         return requestHandler.handle(request);
     }
 }
+
 // This class is responsible by looking for a specify handle to lead with a specify request, based on the type of the request.
