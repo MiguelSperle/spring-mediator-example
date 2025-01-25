@@ -17,7 +17,7 @@ public class SpringMediator implements Mediator {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <TResponse> TResponse send(Request<TResponse> request) {
+    public <OUT> OUT send(Request<OUT> request) {
         if (request == null) {
             throw new NullPointerException("The given request object cannot be null");
         }
@@ -25,7 +25,7 @@ public class SpringMediator implements Mediator {
         // Types used to find the exact handler that is required to handle the given request.
         // We are able to search all application beans(class managed by spring) by type from the Spring ApplicationContext.
         final Class requestType = request.getClass();
-        final Class<TResponse> responseType = (Class<TResponse>) ((ParameterizedType) requestType.getGenericInterfaces()[0]).getActualTypeArguments()[0];
+        final Class<OUT> responseType = (Class<OUT>) ((ParameterizedType) requestType.getGenericInterfaces()[0]).getActualTypeArguments()[0];
 
         // Retrieve RequestHandler beans based on request and response types.
         final String[] beanNames = this.abstractApplicationContext.getBeanNamesForType(ResolvableType.forClassWithGenerics(RequestHandler.class, requestType, responseType));
@@ -40,7 +40,7 @@ public class SpringMediator implements Mediator {
             throw new IllegalStateException("More than one handlers found. Only one handler per request is allowed.");
         }
 
-        final RequestHandler<Request<TResponse>, TResponse> requestHandler = (RequestHandler<Request<TResponse>, TResponse>) this.abstractApplicationContext.getBean(beanNames[0]);
+        final RequestHandler<Request<OUT>, OUT> requestHandler = (RequestHandler<Request<OUT>, OUT>) this.abstractApplicationContext.getBean(beanNames[0]);
 
         return requestHandler.handle(request);
     }
