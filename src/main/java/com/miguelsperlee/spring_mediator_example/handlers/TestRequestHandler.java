@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class TestRequestHandler implements RequestHandler<TestRequest, String> {
     @Override
     public String handle(TestRequest testRequest) {
-        return "Message";
+        return "Message " + testRequest.getTestId();
     }
 }
