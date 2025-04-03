@@ -46,8 +46,8 @@ public class SpringMediator implements IMediator {
             throw new IllegalStateException("More than one handlers found. Only one handler per request is allowed.");
         }
 
-        final ICommandHandler<ICommand<OUT>, OUT> ICommandHandler = (ICommandHandler<ICommand<OUT>, OUT>) this.abstractApplicationContext.getBean(beanNames[0]);
+        final ICommandHandler<ICommand<OUT>, OUT> commandHandler = (ICommandHandler<ICommand<OUT>, OUT>) this.abstractApplicationContext.getBean(beanNames[0]);
 
-        return ICommandHandler.handle(command);
+        return commandHandler.handle(command);
     }
 }
